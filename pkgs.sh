@@ -1,32 +1,49 @@
 #!/bin/bash
 PKGS=(
-    # 基本系統
-    sudo grub efibootmgr networkmanager git base-devel fakeroot intel-ucode ufw neovim openssh
-    # KDE Plasma
-    plasma-desktop plasma-workspace{,-wallpapers} kwin kscreen{,locker} libkscreen
-    kactivitymanagerd plasma-activities{,-stats} libplasma libksysguard kglobalacceld
-    breeze{,-gtk} ocean-sound-theme aurorae kdecoration kdeplasma-addons systemsettings
-    kinfocenter kde-gtk-config sddm-kcm flatpak-kcm kmenuedit kde-cli-tools drkonqi ksystemstats
-    powerdevil bluedevil plasma-{nm,pa,disks,firewall,thunderbolt} print-manager
-    discover plasma-{systemmonitor,vault,welcome,browser-integration,integration}
-    milou polkit-kde-agent kwallet-pam ksshaskpass kwayland kwrited
-    kpipewire krdp knighttime layer-shell-qt xdg-desktop-portal-kde
-    # 顯示與音訊
-    xorg{,-server} sddm intel-media-driver vulkan-intel pipewire wireplumber pipewire-pulse bluez{,-utils}
-    # KDE 應用
-    dolphin{,-plugins} ark gwenview spectacle kate
-    # 常用軟體
-    firefox discord thunderbird kitty fish mpv obs-studio libreoffice-fresh-zh-tw
-    # 開發與容器
-    tailscale docker{,-compose}
-    # QEMU/KVM 虛擬化
-    qemu-full libvirt virt-manager dnsmasq edk2-ovmf iptables-nft
-    # 字型與輸入法
-    noto-fonts-{cjk,emoji} ttf-{jetbrains-mono,font-awesome,nerd-fonts-symbols-mono}
-    fcitx5-{im,chewing,qt,gtk,chinese-addons}
-    # 開發工具
-    jre-openjdk
-    # NVIDIA 驅動
-    nvidia-open-dkms nvidia-utils
+    # 基本系統 (Base System & Tools)
+    base-devel efibootmgr fakeroot git grub networkmanager neovim
+    openssh os-prober power-profiles-daemon sudo ufw
+
+    # 顯示、音訊與藍牙 (Display, Audio & Bluetooth)
+    bluez{,-utils} intel-media-driver pipewire pipewire-pulse wireplumber
+    sddm vulkan-intel xorg{,-server}
+
+    # 顯示卡驅動 (NVIDIA Drivers)
+    linux-headers nvidia-open-dkms nvidia-utils
+
+    # KDE Plasma 核心與元件 (KDE Core & Components)
+    aurorae breeze{,-gtk} discover drkonqi flatpak-kcm kactivitymanagerd
+    kdecoration kde-cli-tools kde-gtk-config kdeplasma-addons kglobalacceld
+    kinfocenter kmenuedit knighttime kpipewire krdp kscreen{,locker}
+    ksshaskpass ksystemstats kwayland kwrited layer-shell-qt libkscreen
+    libksysguard libplasma milou ocean-sound-theme partitionmanager
+    plasma-activities{,-stats} plasma-desktop plasma-workspace{,-wallpapers}
+    polkit-kde-agent powerdevil sddm-kcm systemsettings xdg-desktop-portal-kde
+    breeze-grub
+
+    # KDE Plasma 整合模組 (KDE Integrations)
+    bluedevil kwallet-pam plasma-{nm,pa,disks,firewall,thunderbolt}
+    plasma-{systemmonitor,vault,welcome,browser-integration,integration}
+
+    # KDE 應用程式 (KDE Applications)
+    ark dolphin{,-plugins} gwenview kate spectacle
+
+    # 常用軟體與工具 (Common Utilities & Software)
+    discord firefox fish kitty libreoffice-fresh-zh-tw mpv obs-studio
+    rsync thunderbird unrar zip
+
+    # 開發與容器 (Dev & Containers)
+    docker{,-compose} jre-openjdk tailscale
+
+    # QEMU/KVM 虛擬化 (Virtualization)
+    dnsmasq edk2-ovmf iptables-nft libvirt qemu-full virt-manager
+
+    # 字型 (Fonts)
+    noto-fonts-{cjk,emoji} ttf-{font-awesome,jetbrains-mono,nerd-fonts-symbols-mono}
+
+    # 輸入法 (Input Method: Fcitx5)
+    fcitx5-{chewing,chinese-addons,gtk,im,qt}
 )
+pacman -U --noconfirm pkgs/*.pkg.tar.zst
 pacman -Syu --needed --noconfirm "${PKGS[@]}"
+systemctl enable --now sddm NetworkManager ufw sshd libvirtd bluetooth tailscaled docker 
