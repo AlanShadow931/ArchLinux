@@ -22,10 +22,14 @@ echo "127.0.1.1 ArchLinux" >> /etc/hosts
 # 使用者與權限 (User & Permissions)
 echo "Changing root password..."
 passwd
+useradd -m -G wheel,libvirt,docker -s /bin/bash $USERNAME
 echo "Changing password for $USERNAME..."
 passwd $USERNAME
-useradd -m -G wheel,libvirt,docker -s /bin/bash $USERNAME
+
+# 設定 sudo 權限
+echo "$USERNAME ALL=(ALL:ALL) ALL" >> /etc/sudoers
 
 # GRUB 引導程式安裝與設定 (GRUB Bootloader)
 grub-install --target=x86_64-efi --bootloader-id=GRUB --efi-directory=/boot
 grub-mkconfig -o /boot/grub/grub.cfg
+ls /boot

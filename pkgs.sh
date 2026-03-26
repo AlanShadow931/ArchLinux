@@ -5,7 +5,7 @@ echo "Installing packages..."
 PKGS=(
     # 基本系統 (Base System & Tools)
     base-devel efibootmgr fakeroot git grub networkmanager neovim
-    openssh os-prober power-profiles-daemon sudo ufw
+    openssh os-prober power-profiles-daemon sudo ufw intel-ucode
 
     # 顯示、音訊與藍牙 (Display, Audio & Bluetooth)
     bluez{,-utils} intel-media-driver pipewire pipewire-pulse wireplumber
