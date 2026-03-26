@@ -1,4 +1,7 @@
 #!/bin/bash
+
+echo "Installing packages..."
+
 PKGS=(
     # 基本系統 (Base System & Tools)
     base-devel efibootmgr fakeroot git grub networkmanager neovim
