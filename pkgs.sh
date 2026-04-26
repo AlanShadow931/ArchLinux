@@ -5,7 +5,7 @@ echo "Installing packages..."
 PKGS=(
     # 基本系統 (Base System & Tools)
     base-devel efibootmgr fakeroot git grub networkmanager neovim
-    openssh os-prober power-profiles-daemon sudo ufw intel-ucode
+    openssh os-prober power-profiles-daemon sudo ufw
 
     # 顯示、音訊與藍牙 (Display, Audio & Bluetooth)
     bluez{,-utils} intel-media-driver pipewire pipewire-pulse wireplumber
@@ -32,20 +32,16 @@ PKGS=(
     ark dolphin{,-plugins} gwenview kate spectacle
 
     # 常用軟體與工具 (Common Utilities & Software)
-    discord firefox fish kitty libreoffice-fresh-zh-tw mpv obs-studio
-    rsync thunderbird unrar zip
+    discord firefox fish kitty libreoffice-fresh-zh-tw mpv thunderbird unrar zip
 
     # 開發與容器 (Dev & Containers)
     docker{,-compose} jre-openjdk tailscale
-
-    # QEMU/KVM 虛擬化 (Virtualization)
-    dnsmasq edk2-ovmf iptables-nft libvirt qemu-full virt-manager
 
     # 字型 (Fonts)
     noto-fonts-{cjk,emoji} ttf-{font-awesome,jetbrains-mono,nerd-fonts-symbols-mono}
 
     # 輸入法 (Input Method: Fcitx5)
-    fcitx5-{chewing,chinese-addons,gtk,im,qt}
+    fcitx5-{chinese-addons,gtk,im,qt}
 )
 pacman -U --noconfirm pkgs/*.pkg.tar.zst
 pacman -Syu --needed --noconfirm "${PKGS[@]}"
