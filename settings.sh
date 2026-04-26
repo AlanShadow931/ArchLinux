@@ -22,7 +22,7 @@ echo "127.0.1.1 ArchLinux" >> /etc/hosts
 # 使用者與權限 (User & Permissions)
 echo "Changing root password..."
 passwd
-useradd -m -G wheel,libvirt,docker -s /bin/bash $USERNAME
+useradd -m -G wheel,docker -s /bin/bash $USERNAME
 echo "Changing password for $USERNAME..."
 passwd $USERNAME
 
