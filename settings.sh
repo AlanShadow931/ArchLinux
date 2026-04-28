@@ -29,6 +29,10 @@ passwd $USERNAME
 # 設定 sudo 權限
 echo "$USERNAME ALL=(ALL:ALL) ALL" >> /etc/sudoers
 
+git clone https://github.com/ZWolken/PingFang.git /tmp/PingFang
+mkdir -p /usr/share/fonts/PingFang
+cp /tmp/PingFang/*.ttf /usr/share/fonts/PingFang/
+
 # GRUB 引導程式安裝與設定 (GRUB Bootloader)
 grub-install --target=x86_64-efi --bootloader-id=GRUB --efi-directory=/boot
 grub-mkconfig -o /boot/grub/grub.cfg
