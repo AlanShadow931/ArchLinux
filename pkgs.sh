@@ -37,9 +37,6 @@ PKGS=(
     # 開發與容器 (Dev & Containers)
     docker{,-compose} jre-openjdk tailscale
 
-    # VPN 整合 (VPN Integration)
-    networkmanager-openconnect openconnect
-
     # 字型 (Fonts)
     noto-fonts-{cjk,emoji} ttf-{font-awesome,jetbrains-mono,nerd-fonts-symbols-mono}
 
