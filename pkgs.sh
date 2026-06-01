@@ -32,7 +32,7 @@ PKGS=(
     ark dolphin{,-plugins} gwenview kate spectacle
 
     # 常用軟體與工具 (Common Utilities & Software)
-    discord firefox fish kitty libreoffice-fresh-zh-tw mpv thunderbird unrar zip
+    discord fish kitty libreoffice-fresh-zh-tw mpv thunderbird unrar zip
 
     # 開發與容器 (Dev & Containers)
     docker{,-compose} jre-openjdk tailscale
