@@ -1,5 +1,10 @@
 #!/bin/bash
 
+set -euo pipefail
+
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+PKG_DIR="${SCRIPT_DIR}/pkgs"
+
 echo "Installing packages..."
 
 PKGS=(
@@ -22,7 +27,6 @@ PKGS=(
     libksysguard libplasma milou ocean-sound-theme partitionmanager
     plasma-activities{,-stats} plasma-desktop plasma-workspace{,-wallpapers}
     polkit-kde-agent powerdevil sddm-kcm systemsettings xdg-desktop-portal-kde
-    breeze-grub
 
     # KDE Plasma 整合模組 (KDE Integrations)
     bluedevil kwallet-pam plasma-{nm,pa,disks,firewall,thunderbolt}
@@ -32,7 +36,7 @@ PKGS=(
     ark dolphin{,-plugins} gwenview kate spectacle
 
     # 常用軟體與工具 (Common Utilities & Software)
-    discord fish kitty libreoffice-fresh-zh-tw mpv thunderbird unrar zip
+    fish kitty libreoffice-fresh-zh-tw mpv thunderbird unrar zip
 
     # 開發與容器 (Dev & Containers)
     docker{,-compose} jre-openjdk tailscale
@@ -43,6 +47,19 @@ PKGS=(
     # 輸入法 (Input Method: Fcitx5)
     fcitx5-{chinese-addons,gtk,im,qt}
 )
-pacman -U --noconfirm pkgs/*.pkg.tar.zst
+
+if [ ! -d "$PKG_DIR" ]; then
+    echo "找不到套件目錄：$PKG_DIR"
+    exit 1
+fi
+
+shopt -s nullglob
+PKG_FILES=("$PKG_DIR"/*.pkg.tar.zst)
+if [ ${#PKG_FILES[@]} -eq 0 ]; then
+    echo "在 $PKG_DIR 中找不到任何 .pkg.tar.zst 套件檔。"
+    exit 1
+fi
+
+pacman -U --noconfirm "${PKG_FILES[@]}"
 pacman -Syu --needed --noconfirm "${PKGS[@]}"
-systemctl enable sddm NetworkManager ufw sshd bluetooth tailscaled docker 
+systemctl enable sddm NetworkManager ufw sshd bluetooth tailscaled docker

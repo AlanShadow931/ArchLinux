@@ -1,5 +1,13 @@
 #!/bin/bash
 
+set -euo pipefail
+
+if [ "$EUID" -ne 0 ]; then
+    echo "此腳本預設應在 arch-chroot 之後執行，請先進入目標系統後再執行。"
+    echo "例如：arch-chroot /mnt /bin/bash"
+    exit 1
+fi
+
 USERNAME="Asomya"
 echo "Setting up system configurations..."
 
@@ -25,7 +33,7 @@ echo "Hostname and hosts configured."
 # 使用者與權限 (User & Permissions)
 echo "Changing root password..."
 passwd
-useradd -m -G wheel,docker -s /bin/bash $USERNAME
+useradd -m -G wheel,docker,audio,video -s /bin/bash $USERNAME
 echo "Changing password for $USERNAME..."
 passwd $USERNAME
 echo "User $USERNAME created and added to wheel and docker groups."
